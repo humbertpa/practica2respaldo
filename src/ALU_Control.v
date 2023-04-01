@@ -39,6 +39,8 @@ localparam R_Type_XOR 	= 7'b0_000_100;
 localparam S_Type_SW		= 7'bx_001_010;
 localparam I_Type_LW		= 7'bx_001_010;
 
+localparam I_Type_JALR	= 7'bx_001_000;
+
 localparam I_Type_ADDI 	= 7'bx_001_000;
 localparam I_Type_ORI	= 7'bx_001_110;
 localparam I_Type_SLLI	= 7'bx_001_001;
@@ -46,12 +48,21 @@ localparam I_Type_SRLI	= 7'bx_001_101;
 localparam I_Type_ANDI 	= 7'bX_001_111;
 localparam I_Type_XORI 	= 7'bX_001_100;
 
+
+localparam U_Type_LUI	= 7'bx_010_xxx;
+
+
+
 localparam B_Type_BEQ	= 7'bx_100_000;
 localparam B_Type_BNE	= 7'bx_100_001;
 localparam B_Type_BLT	= 7'bx_100_100;
 localparam B_Type_BGE	= 7'bx_100_101;
 
-localparam U_Type_LUI	= 7'bx_010_xxx;
+
+
+
+
+//localparam J_Type_JAL	= 7'bx_011_xxx;
 
 
 
@@ -68,6 +79,7 @@ always@(selector)begin
 	
 	R_Type_ADD 	: alu_control_values = 4'b0000;
 	I_Type_ADDI	: alu_control_values = 4'b0000;
+	I_Type_JALR	: alu_control_values = 4'b0000;
 	
 	S_Type_SW	: alu_control_values = 4'b0000;
 	I_Type_LW	: alu_control_values = 4'b0000;
@@ -96,6 +108,10 @@ always@(selector)begin
    B_Type_BNE	: alu_control_values = 4'b1001;
    B_Type_BLT	: alu_control_values = 4'b1010;
    B_Type_BGE	: alu_control_values = 4'b1011;
+	
+
+	
+//	J_Type_JAL	: alu_control_values	= 4';
 	
 	
 		default: alu_control_values = 4'b00_00;

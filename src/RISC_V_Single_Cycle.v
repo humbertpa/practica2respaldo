@@ -55,6 +55,7 @@ wire [2:0] alu_op_w;
 
 /** Program Counter**/
 wire [31:0] pc_plus_4_w;
+wire [31:0] pc_next_w;
 wire [31:0] pc_w;
 
 
@@ -78,6 +79,8 @@ wire [31:0] alu_load_result_w;
 /**Multiplexer MUX_BRANCH**/
 wire [31:0] inc_w;
 
+/**Multiplexer MUX_PC_IMM**/
+wire [31:0] rd_data_w;
 
 /**ALU Control**/
 wire [3:0] alu_operation_w;
@@ -119,6 +122,14 @@ CONTROL_UNIT // debajo del nombre del modulo esta el nombre de la instancia debe
 
 
 
+
+
+
+
+
+
+
+
 Program_Memory
 #(
 	.MEMORY_DEPTH(PROGRAM_MEMORY_DEPTH)
@@ -129,12 +140,15 @@ PROGRAM_MEMORY
 	.Instruction_o(instruction_bus_w)
 );
 
+
+
+
 PC_Register
 PC_0
 (
 	.clk(clk),
 	.reset(reset),
-	.Next_PC(pc_plus_4_w),
+	.Next_PC(pc_next_w),
 	
 	.PC_Value(pc_w)
 );
@@ -168,7 +182,7 @@ REGISTER_FILE_UNIT
 	.Write_Register_i(instruction_bus_w[11:7]),
 	.Read_Register_1_i(instruction_bus_w[19:15]), // destino en sw
 	.Read_Register_2_i(instruction_bus_w[24:20]), // origen en sw
-	.Write_Data_i(alu_load_result_w),
+	.Write_Data_i(rd_data_w),
 	.Read_Data_1_o(read_data_1_w),
 	.Read_Data_2_o(read_data_2_w)
 
@@ -240,6 +254,7 @@ Multiplexer_2_to_1
 #(
 	.NBits(32)
 )
+
 MUX_ALU_OR_LOAD
 (
 	.Selector_i(mem_to_reg_w),
@@ -254,14 +269,45 @@ Multiplexer_2_to_1
 #(
 	.NBits(32)
 )
+
+
 MUX_BRANCH
 (
-	.Selector_i(!alu_zero && branch_w),
+	.Selector_i(branch_w && !reg_write_w && !alu_zero),
 	.Mux_Data_0_i(4),
-	.Mux_Data_1_i(inmmediate_data_w*4),
+	.Mux_Data_1_i(inmmediate_data_w),
 	.Mux_Output_o(inc_w)
-
 );
+
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+
+MUX_JALR_JAL
+(
+	.Selector_i(reg_write_w && branch_w && alu_src_w),
+	.Mux_Data_0_i(inc_w),
+	.Mux_Data_1_i(alu_result_w),
+	.Mux_Output_o(pc_next_w)
+);
+
+
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+
+MUX_ALU_LOAD_OR_BRANCH
+(
+	.Selector_i(!mem_to_reg_w && branch_w),
+	.Mux_Data_0_i(alu_load_result_w),
+	.Mux_Data_1_i(pc_plus_4_w),
+	.Mux_Output_o(rd_data_w)
+	
+);
+
+
 
 
 

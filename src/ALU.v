@@ -37,6 +37,8 @@ localparam BEQ  = 4'b1000;
 localparam BNE  = 4'b1001;
 localparam BLT  = 4'b1010;
 localparam BGE  = 4'b1011;
+localparam JALR  = 4'b1100;
+//localparam JAL  = 4'b;
 
 /*B_i es el immediate cuando ocurra la situación*/
 
@@ -44,7 +46,7 @@ localparam BGE  = 4'b1011;
      begin
 		case (ALU_Operation_i)
 		
-		ADD	: ALU_Result_o = A_i + B_i;
+		ADD	: ALU_Result_o = A_i + B_i;  // includes addi and jalr
 		SUB	: ALU_Result_o = A_i - B_i;
 		ORI	: ALU_Result_o = A_i | B_i;
 		SLL	: ALU_Result_o = A_i << B_i[4:0];
