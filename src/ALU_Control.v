@@ -51,16 +51,10 @@ localparam I_Type_XORI 	= 7'bX_001_100;
 
 localparam U_Type_LUI	= 7'bx_010_xxx;
 
-
-
 localparam B_Type_BEQ	= 7'bx_100_000;
 localparam B_Type_BNE	= 7'bx_100_001;
 localparam B_Type_BLT	= 7'bx_100_100;
 localparam B_Type_BGE	= 7'bx_100_101;
-
-
-
-
 
 //localparam J_Type_JAL	= 7'bx_011_xxx;
 

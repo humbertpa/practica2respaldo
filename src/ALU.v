@@ -25,9 +25,9 @@ module ALU
 );
 
 
-localparam ADD  = 4'b0000;
+localparam ADD  = 4'b0000; //add,addi,jalr,sw,lw
 localparam SUB  = 4'b0001;
-localparam ORI  = 4'b0010;
+localparam OR   = 4'b0010;
 localparam SLL  = 4'b0011;
 localparam SRL  = 4'b0100;
 localparam LUI  = 4'b0101;
@@ -37,7 +37,6 @@ localparam BEQ  = 4'b1000;
 localparam BNE  = 4'b1001;
 localparam BLT  = 4'b1010;
 localparam BGE  = 4'b1011;
-localparam JALR  = 4'b1100;
 //localparam JAL  = 4'b;
 
 /*B_i es el immediate cuando ocurra la situación*/
@@ -48,7 +47,7 @@ localparam JALR  = 4'b1100;
 		
 		ADD	: ALU_Result_o = A_i + B_i;  // includes addi and jalr
 		SUB	: ALU_Result_o = A_i - B_i;
-		ORI	: ALU_Result_o = A_i | B_i;
+		OR 	: ALU_Result_o = A_i | B_i;
 		SLL	: ALU_Result_o = A_i << B_i[4:0];
 		SRL	: ALU_Result_o = A_i >> B_i[4:0];
 		LUI	: ALU_Result_o = {B_i,12'b0};

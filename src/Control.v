@@ -21,9 +21,9 @@ module Control
 	output Mem_to_Reg_o,
 	output Mem_Write_o,
 	
-	output ALU_Src_o,		//
-	output Reg_Write_o,	//
-	output [2:0]ALU_Op_o	//
+	output ALU_Src_o,		
+	output Reg_Write_o,	
+	output [2:0]ALU_Op_o	
 );
 
 localparam R_Type = 7'h33;
@@ -48,11 +48,11 @@ always@(OP_i) begin
 	I_Type_LOAD	 : control_values = 9'b011_10_1_001;
 	I_Type_JUMP  : control_values = 9'b101_00_1_001;
 	
-	S_Type 		 :	control_values = 9'b000_01_1_001; // Se le va a sumar un immediat al valor del registro 1
+	S_Type :	control_values = 9'b000_01_1_001; // Se le va a sumar un immediat al valor del registro 1
 	
 	U_Type : control_values = 9'b001_00_1_010;
 	
-	J_Type : control_values = 9'b101_00_000;
+	J_Type : control_values = 9'b101_00_0_000;
 	
 	B_Type : control_values = 9'b100_00_0_100;
 	

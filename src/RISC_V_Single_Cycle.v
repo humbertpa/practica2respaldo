@@ -89,7 +89,7 @@ wire [3:0] alu_operation_w;
 wire [31:0] instruction_bus_w;
 
 /**DATA_MEMORY**/
-wire [31:0] load_value;
+wire [31:0] load_value_w;
 
 
 //******************************************************************/
@@ -291,6 +291,10 @@ MUX_JALR_JAL
 	.Mux_Data_1_i(alu_result_w),
 	.Mux_Output_o(pc_next_w)
 );
+
+
+
+
 
 
 Multiplexer_2_to_1
