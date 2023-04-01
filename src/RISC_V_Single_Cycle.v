@@ -159,9 +159,9 @@ PC_PLUS_4
 // dentro de una instancia hay puertos a los que se hace referncia usando . y el nombe del puerto
 // para conectarlo se conecta con paretensis (y el destino)
 	.Data0(pc_w),
-	.Data1(inc_w),
+	.Data1(pc_inc_w),
 	
-	.Result(pc_plus_4_w)
+	.Result(pc_next_w)
 );
 
 
@@ -289,7 +289,7 @@ MUX_JALR_JAL
 	.Selector_i(reg_write_w && branch_w && alu_src_w),
 	.Mux_Data_0_i(inc_w),
 	.Mux_Data_1_i(alu_result_w),
-	.Mux_Output_o(pc_next_w)
+	.Mux_Output_o(pc_inc_w)
 );
 
 
@@ -306,7 +306,7 @@ MUX_ALU_LOAD_OR_BRANCH
 (
 	.Selector_i(!mem_to_reg_w && branch_w),
 	.Mux_Data_0_i(alu_load_result_w),
-	.Mux_Data_1_i(pc_plus_4_w),
+	.Mux_Data_1_i(pc_next_w),
 	.Mux_Output_o(rd_data_w)
 	
 );
