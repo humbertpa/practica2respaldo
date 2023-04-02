@@ -27,7 +27,7 @@ module Data_Memory
 wire [DATA_WIDTH-1 : 0] real_address;
 
 //assign real_address = {2'b0, Address_i[15:2]};
-assign real_address = {Address_i-32'h10010000};
+assign real_address = {(Address_i-32'h10010000)>>2};
 	
 	// Declare the RAM variable
 reg [DATA_WIDTH-1:0] ram[MEMORY_DEPTH-1:0];

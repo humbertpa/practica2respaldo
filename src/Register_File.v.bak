@@ -58,19 +58,11 @@ Register_zero
 	.DataOutput(Intercnection_wire[N-1:0])
 );
 
-/*
-Reg_ra
-Register_ra
-(
-	.clk(clk),
-	.reset(reset),
-	.enable(select_register_w[1]&Reg_Write_i),
-	.DataInput(Write_Data_i),
-	.DataOutput(Intercnection_wire[2*N-1:1*N])
-);	
-*/
 
-Reg_ra
+	
+	
+	
+Register
 Register_ra
 (
 	.clk(clk),
@@ -79,6 +71,8 @@ Register_ra
 	.DataInput(Write_Data_i),
 	.DataOutput(Intercnection_wire[2*N-1:1*N])
 );	
+	
+
 	
 Register
 Register_sp

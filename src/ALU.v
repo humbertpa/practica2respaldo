@@ -59,7 +59,7 @@ localparam SW   = 4'b1101;
 		BNE  	: ALU_Result_o = A_i != B_i;
 		BLT  	: ALU_Result_o = A_i < B_i;
 		BGE  	: ALU_Result_o = A_i >= B_i;
-		SW  	: ALU_Result_o = A_i + B_i>>2;
+		SW  	: ALU_Result_o = A_i + B_i;
 
 		default:
 			ALU_Result_o = 0;

@@ -32,7 +32,6 @@ localparam R_Type_SRL 	= 7'b0_000_101;
 localparam R_Type_AND 	= 7'b0_000_111;
 localparam R_Type_XOR 	= 7'b0_000_100;
 
-localparam S_Type_SW		= 7'bx_001_010;
 localparam I_Type_LW		= 7'bx_001_010;
 
 localparam I_Type_JALR	= 7'bx_001_000;
@@ -44,8 +43,9 @@ localparam I_Type_SRLI	= 7'bx_001_101;
 localparam I_Type_ANDI 	= 7'bX_001_111;
 localparam I_Type_XORI 	= 7'bX_001_100;
 
-
 localparam U_Type_LUI	= 7'bx_010_xxx;
+
+localparam S_Type_SW		= 7'bx_011_010;
 
 localparam B_Type_BEQ	= 7'bx_100_000;
 localparam B_Type_BNE	= 7'bx_100_001;
