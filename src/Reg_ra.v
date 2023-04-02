@@ -17,7 +17,7 @@ module Reg_ra
     input reset,
     input enable,
     input [N-1:0] DataInput,
-    output wire [N-1:0] DataOutput
+    output reg [N-1:0] DataOutput
 );
 
 reg [N-1:0] stored_val;
@@ -26,12 +26,16 @@ always @(posedge clk, negedge reset) begin
     if (!reset) begin
         stored_val <= 0;
     end
-    else if (enable && DataInput != 0) begin
+    else if (enable && DataInput != 32'bz) begin
         stored_val <= DataInput;
+		  DataOutput <= stored_val;
     end
+	 else begin
+		DataOutput <= stored_val;
+	 end
+	 	
 end
 
-assign DataOutput = (DataInput != 0) ? DataInput : stored_val;
 
 
 endmodule

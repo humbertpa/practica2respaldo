@@ -24,7 +24,7 @@ module Program_Memory
 );
 wire [(DATA_WIDTH-1):0] real_address;
 
-assign real_address = {2'b0, Address_i[16:2]};
+assign real_address = {2'b0, Address_i[16:2] - 32'h400000};
 
 	// Declare the ROM variable
 	reg [DATA_WIDTH-1:0] rom[MEMORY_DEPTH-1:0];

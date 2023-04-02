@@ -58,6 +58,7 @@ wire [31:0] pc_plus_4_w;
 wire [31:0] pc_next_w;
 wire [31:0] pc_inc_w;
 wire [31:0] pc_w;
+wire [31:0] pc_addr_w;
 
 
 /**Register File**/
@@ -128,7 +129,7 @@ Program_Memory
 )
 PROGRAM_MEMORY
 (
-	.Address_i(pc_w),
+	.Address_i(pc_addr_w),
 	.Instruction_o(instruction_bus_w)
 );
 
@@ -154,6 +155,18 @@ PC_PLUS_4
 	.Data1(inc_w),
 	
 	.Result(pc_inc_w)
+);
+
+Adder_32_Bits
+PC_PLUS_INIT
+(
+
+	.Data0(32'h400000),
+	.Data1(pc_w),
+	
+	.Result(pc_addr_w)
+
+
 );
 
 //******************************************************************/
