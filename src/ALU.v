@@ -37,7 +37,7 @@ localparam BEQ  = 4'b1000;
 localparam BNE  = 4'b1001;
 localparam BLT  = 4'b1010;
 localparam BGE  = 4'b1011;
-//localparam JAL  = 4'b;
+localparam JAL  = 4'b1100;
 
 /*B_i es el immediate cuando ocurra la situación*/
 

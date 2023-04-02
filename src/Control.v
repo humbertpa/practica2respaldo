@@ -48,11 +48,11 @@ always@(OP_i) begin
 	I_Type_LOAD	 : control_values = 9'b011_10_1_001;
 	I_Type_JUMP  : control_values = 9'b101_00_1_001;
 	
-	S_Type :	control_values = 9'b000_01_1_001; // Se le va a sumar un immediat al valor del registro 1
+	J_Type : control_values = 9'b101_00_0_101;
+	
+	S_Type :	control_values = 9'b000_01_1_001;
 	
 	U_Type : control_values = 9'b001_00_1_010;
-	
-	J_Type : control_values = 9'b101_00_0_000;
 	
 	B_Type : control_values = 9'b100_00_0_100;
 	

@@ -12,7 +12,7 @@
 
 module Data_Memory 
 #(	parameter DATA_WIDTH = 32,
-	parameter MEMORY_DEPTH = 8192
+	parameter MEMORY_DEPTH = 256
 )
 (
 	input clk,

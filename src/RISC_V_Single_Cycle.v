@@ -56,6 +56,7 @@ wire [2:0] alu_op_w;
 /** Program Counter**/
 wire [31:0] pc_plus_4_w;
 wire [31:0] pc_next_w;
+wire [31:0] pc_inc_w;
 wire [31:0] pc_w;
 
 
@@ -121,15 +122,6 @@ CONTROL_UNIT // debajo del nombre del modulo esta el nombre de la instancia debe
 );
 
 
-
-
-
-
-
-
-
-
-
 Program_Memory
 #(
 	.MEMORY_DEPTH(PROGRAM_MEMORY_DEPTH)
@@ -159,11 +151,10 @@ PC_PLUS_4
 // dentro de una instancia hay puertos a los que se hace referncia usando . y el nombe del puerto
 // para conectarlo se conecta con paretensis (y el destino)
 	.Data0(pc_w),
-	.Data1(pc_inc_w),
+	.Data1(inc_w),
 	
-	.Result(pc_next_w)
+	.Result(pc_inc_w)
 );
-
 
 //******************************************************************/
 //******************************************************************/
@@ -270,10 +261,9 @@ Multiplexer_2_to_1
 	.NBits(32)
 )
 
-
 MUX_BRANCH
 (
-	.Selector_i(branch_w && !reg_write_w && !alu_zero),
+	.Selector_i(branch_w && !reg_write_w && !alu_zero || branch && reg_write_w),
 	.Mux_Data_0_i(4),
 	.Mux_Data_1_i(inmmediate_data_w),
 	.Mux_Output_o(inc_w)
@@ -284,13 +274,14 @@ Multiplexer_2_to_1
 	.NBits(32)
 )
 
-MUX_JALR_JAL
+MUX_JALR
 (
 	.Selector_i(reg_write_w && branch_w && alu_src_w),
-	.Mux_Data_0_i(inc_w),
+	.Mux_Data_0_i(pc_inc_w),
 	.Mux_Data_1_i(alu_result_w),
-	.Mux_Output_o(pc_inc_w)
+	.Mux_Output_o(pc_next_w)
 );
+
 
 
 
@@ -306,15 +297,10 @@ MUX_ALU_LOAD_OR_BRANCH
 (
 	.Selector_i(!mem_to_reg_w && branch_w),
 	.Mux_Data_0_i(alu_load_result_w),
-	.Mux_Data_1_i(pc_next_w),
+	.Mux_Data_1_i(pc_inc_w),
 	.Mux_Output_o(rd_data_w)
 	
 );
-
-
-
-
-
 
 
 endmodule

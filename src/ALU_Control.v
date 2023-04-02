@@ -23,10 +23,6 @@ module ALU_Control
 
 );
 
-//ALU_OP_I
-//R = 000
-//I,S = 001 S se incluye porque incluye la suma de un immediate (el offset)
-//U = 010
 
 localparam R_Type_ADD 	= 7'b0_000_000;
 localparam R_Type_SUB 	= 7'b1_000_000;
@@ -40,7 +36,6 @@ localparam S_Type_SW		= 7'bx_001_010;
 localparam I_Type_LW		= 7'bx_001_010;
 
 localparam I_Type_JALR	= 7'bx_001_000;
-
 localparam I_Type_ADDI 	= 7'bx_001_000;
 localparam I_Type_ORI	= 7'bx_001_110;
 localparam I_Type_SLLI	= 7'bx_001_001;
@@ -56,12 +51,7 @@ localparam B_Type_BNE	= 7'bx_100_001;
 localparam B_Type_BLT	= 7'bx_100_100;
 localparam B_Type_BGE	= 7'bx_100_101;
 
-//localparam J_Type_JAL	= 7'bx_011_xxx;
-
-
-
-
-
+localparam J_Type_JAL	= 7'bx_101_xxx;
 
 reg [3:0] alu_control_values;
 wire [6:0] selector;
@@ -103,10 +93,7 @@ always@(selector)begin
    B_Type_BLT	: alu_control_values = 4'b1010;
    B_Type_BGE	: alu_control_values = 4'b1011;
 	
-
-	
-//	J_Type_JAL	: alu_control_values	= 4';
-	
+	J_Type_JAL	: alu_control_values = 4'b1100;
 	
 		default: alu_control_values = 4'b00_00;
 	endcase
