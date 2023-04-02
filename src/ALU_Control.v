@@ -37,6 +37,7 @@ localparam I_Type_LW		= 7'bx_001_010;
 
 localparam I_Type_JALR	= 7'bx_001_000;
 localparam I_Type_ADDI 	= 7'bx_001_000;
+
 localparam I_Type_ORI	= 7'bx_001_110;
 localparam I_Type_SLLI	= 7'bx_001_001;
 localparam I_Type_SRLI	= 7'bx_001_101;
@@ -65,7 +66,7 @@ always@(selector)begin
 	I_Type_ADDI	: alu_control_values = 4'b0000;
 	I_Type_JALR	: alu_control_values = 4'b0000;
 	
-	S_Type_SW	: alu_control_values = 4'b0000;
+
 	I_Type_LW	: alu_control_values = 4'b0000;
 	
 	R_Type_SUB 	: alu_control_values = 4'b0001;
@@ -94,6 +95,8 @@ always@(selector)begin
    B_Type_BGE	: alu_control_values = 4'b1011;
 	
 	J_Type_JAL	: alu_control_values = 4'b1100;
+	
+	S_Type_SW	: alu_control_values = 4'b1101;
 	
 		default: alu_control_values = 4'b00_00;
 	endcase

@@ -29,10 +29,9 @@ always@(op_i or Instruction_bus_i) begin
 	else if(op_i == 7'h63)
 		Immediate_o = {20'b0,Instruction_bus_i[31],Instruction_bus_i[7],Instruction_bus_i[30:25],Instruction_bus_i[11:8]};// B format
 	else if(op_i == 7'h6F)
-		Immediate_o = {12'b0,Instruction_bus_i[31],Instruction_bus_i[19:12],Instruction_bus_i[20],Instruction_bus_i[30:21]};// J format	
+		Immediate_o = {{20{Instruction_bus_i[31]}},Instruction_bus_i[31:21],1'b0};// J format
 	else
 		Immediate_o = {{12{Instruction_bus_i[31]}},Instruction_bus_i[31:12]};// U format
-
 end
 
 

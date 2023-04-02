@@ -217,8 +217,6 @@ ALU_CONTROL_UNIT
 	.ALU_Operation_o(alu_operation_w)
 );
 
-
-
 ALU
 ALU_UNIT
 (
@@ -238,7 +236,7 @@ DATA_MEMORY
 	.Mem_Read_i(mem_read_w),
 	.Write_Data_i(read_data_2_w),	
 	.Address_i(alu_result_w),
-	.Read_Data_o(load_value)
+	.Read_Data_o(load_value_w)
 );
 
 Multiplexer_2_to_1
@@ -250,9 +248,23 @@ MUX_ALU_OR_LOAD
 (
 	.Selector_i(mem_to_reg_w),
 	.Mux_Data_0_i(alu_result_w),
-	.Mux_Data_1_i(load_value),
+	.Mux_Data_1_i(load_value_w),
 	.Mux_Output_o(alu_load_result_w)
 
+);
+
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+
+MUX_ALU_LOAD_OR_BRANCH
+(
+	.Selector_i(!mem_to_reg_w && branch_w),
+	.Mux_Data_0_i(alu_load_result_w),
+	.Mux_Data_1_i(pc_inc_w),
+	.Mux_Output_o(rd_data_w)
+	
 );
 
 
@@ -263,7 +275,7 @@ Multiplexer_2_to_1
 
 MUX_BRANCH
 (
-	.Selector_i(branch_w && !reg_write_w && !alu_zero || branch && reg_write_w),
+	.Selector_i(branch_w && !reg_write_w && !alu_zero || branch_w && reg_write_w),
 	.Mux_Data_0_i(4),
 	.Mux_Data_1_i(inmmediate_data_w),
 	.Mux_Output_o(inc_w)
@@ -288,19 +300,7 @@ MUX_JALR
 
 
 
-Multiplexer_2_to_1
-#(
-	.NBits(32)
-)
 
-MUX_ALU_LOAD_OR_BRANCH
-(
-	.Selector_i(!mem_to_reg_w && branch_w),
-	.Mux_Data_0_i(alu_load_result_w),
-	.Mux_Data_1_i(pc_inc_w),
-	.Mux_Output_o(rd_data_w)
-	
-);
 
 
 endmodule

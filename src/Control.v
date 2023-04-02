@@ -15,7 +15,6 @@ module Control
 (
 	input [6:0]OP_i,
 	
-	
 	output Branch_o,
 	output Mem_Read_o,
 	output Mem_to_Reg_o,
@@ -34,13 +33,15 @@ localparam I_Type_JUMP =  7'h67;
 
 localparam U_Type = 7'h37;
 localparam J_Type = 7'h6F;
-localparam S_Type = 7'h23;
+localparam S_Type = 7'h23; 
 localparam B_Type = 7'h63;
 
 reg [8:0] control_values;
 
 always@(OP_i) begin
 	case(OP_i)							 //  876_54_3_210
+	
+//x01_00_1_001	
 	
 	R_Type : control_values = 9'b001_00_0_000;
 	
