@@ -22,9 +22,14 @@ module Program_Memory
 	input [(DATA_WIDTH-1):0] Address_i,
 	output reg [(DATA_WIDTH-1):0] Instruction_o
 );
+
+wire [(DATA_WIDTH-1):0] modified_address;
 wire [(DATA_WIDTH-1):0] real_address;
 
-assign real_address = {2'b0, Address_i[16:2] - 32'h400000};
+
+assign modified_address = Address_i - 32'h400000;
+assign real_address = {2'b0, Address_i[16:2]};
+
 
 	// Declare the ROM variable
 	reg [DATA_WIDTH-1:0] rom[MEMORY_DEPTH-1:0];

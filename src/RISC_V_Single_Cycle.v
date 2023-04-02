@@ -288,7 +288,7 @@ Multiplexer_2_to_1
 
 MUX_BRANCH
 (
-	.Selector_i(branch_w && !reg_write_w && !alu_zero || branch_w && reg_write_w),
+	.Selector_i(branch_w && !reg_write_w && !alu_zero || branch_w && reg_write_w && !alu_src_w), // (branch && !jal &&  bool resultado de comparacion ) ? imm
 	.Mux_Data_0_i(4),
 	.Mux_Data_1_i(inmmediate_data_w),
 	.Mux_Output_o(inc_w)
@@ -301,7 +301,7 @@ Multiplexer_2_to_1
 
 MUX_JALR
 (
-	.Selector_i(reg_write_w && branch_w && alu_src_w),
+	.Selector_i(reg_write_w && branch_w && alu_src_w),   // 
 	.Mux_Data_0_i(pc_inc_w),
 	.Mux_Data_1_i(alu_result_w),
 	.Mux_Output_o(pc_next_w)
